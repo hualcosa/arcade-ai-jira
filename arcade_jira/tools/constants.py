@@ -11,9 +11,13 @@ load_dotenv(arcade_env_path)
 
 @dataclass
 class JiraConfig:
-    base_url: str
-    email: str
-    api_token: str
+    base_url: str | None
+    email: str | None
+    api_token: str | None
+
+    MISSING_ENV_ERROR = (
+        "JIRA_BASE_URL, JIRA_EMAIL, and JIRA_API_TOKEN must be set in ~/.arcade/arcade.env"
+    )
 
     @classmethod
     def from_env(cls) -> "JiraConfig":
@@ -21,14 +25,7 @@ class JiraConfig:
         email = os.getenv("JIRA_EMAIL")
         api_token = os.getenv("JIRA_API_TOKEN")
 
-        if not all([base_url, email, api_token]):
-            raise ValueError(
-                "JIRA_BASE_URL, JIRA_EMAIL, and JIRA_API_TOKEN must be set in ~/.arcade/arcade.env"
-            )
-
-        # After the check above, we know these are not None
-        assert base_url is not None
-        assert email is not None
-        assert api_token is not None
+        if any(var is None for var in [base_url, email, api_token]):
+            raise ValueError(cls.MISSING_ENV_ERROR)
 
         return cls(base_url=base_url, email=email, api_token=api_token)

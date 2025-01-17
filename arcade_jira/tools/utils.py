@@ -48,7 +48,7 @@ async def _send_jira_request(
             )
             response.raise_for_status()
         except httpx.RequestError as e:
-            raise ToolExecutionError(f"Failed to send request to Jira API: {e}")
+            raise ToolExecutionError(str(e)) from e
 
     return response
 
@@ -73,7 +73,8 @@ def _handle_jira_api_error(response: httpx.Response) -> None:
     if response.status_code in status_code_map:
         raise status_code_map[response.status_code]
     elif response.status_code >= 400:
-        raise ToolExecutionError(f"Error: {response.status_code} - {response.text}")
+        error_msg = f"Error: {response.status_code} - {response.text}"
+        raise ToolExecutionError(error_msg)
 
 
 def _send_jira_request_sync(
@@ -116,6 +117,6 @@ def _send_jira_request_sync(
             response = client.request(method, url, headers=headers, params=params, json=json_data)
             response.raise_for_status()
         except httpx.RequestError as e:
-            raise ToolExecutionError(f"Failed to send request to Jira API: {e}")
+            raise ToolExecutionError(str(e)) from e
 
     return response

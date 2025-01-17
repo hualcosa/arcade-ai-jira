@@ -28,7 +28,9 @@ def jira_issues_eval_suite() -> EvalSuite:
     """Create an evaluation suite for Jira issue management tools."""
     suite = EvalSuite(
         name="Jira Issues Tools Evaluation",
-        system_message="You are an AI assistant that can manage Jira issues using the provided tools.",
+        system_message=(
+            "You are an AI assistant that can manage Jira issues using the provided tools."
+        ),
         catalog=catalog,
         rubric=rubric,
     )
@@ -36,7 +38,10 @@ def jira_issues_eval_suite() -> EvalSuite:
     # Create Issue Cases
     suite.add_case(
         name="Create bug issue",
-        user_message="Create a bug in the ARCADE project. The login button is not working on Safari browsers. Title it 'Login Button Safari Issue'",
+        user_message=(
+            "Create a bug in the ARCADE project. The login button is not"
+            " working on Safari browsers. Title it 'Login Button Safari Issue'"
+        ),
         expected_tool_calls=[
             (
                 create_issue,
@@ -195,7 +200,9 @@ def jira_issues_eval_suite() -> EvalSuite:
     # Complex Multi-Tool Cases
     # suite.add_case(
     #     name="Create and transition issue",
-    #     user_message="create a task in ARCADE called 'Update Dependencies' and move it to In Progress",
+    #     user_message=(
+    # "create a task in ARCADE called 'Update Dependencies' and move it to In Progress"
+    # ),
     #     expected_tool_calls=[
     #         (
     #             create_issue,

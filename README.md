@@ -20,15 +20,15 @@ toolkit designed to perform basic operations on JIRA Issues
    ```
 
    To obtain these credentials:
-   1. **JIRA_API_TOKEN**: 
+   1. **JIRA_API_TOKEN**:
       - Log in to https://id.atlassian.com/manage/api-tokens
       - Click "Create API token"
       - Give your token a label and click "Create"
       - Copy the generated token (you won't be able to see it again)
-   
+
    2. **JIRA_EMAIL**:
       - Use the email address associated with your Atlassian account
-   
+
    3. **JIRA_BASE_URL**:
       - This is your Jira instance URL (e.g., https://your-domain.atlassian.net)
       - For cloud instances, it will be in the format: https://[your-domain].atlassian.net
